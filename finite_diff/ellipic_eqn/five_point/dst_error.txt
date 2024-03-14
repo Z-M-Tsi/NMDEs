@@ -1,0 +1,9 @@
+Error norm when n = 20: 2.523812e-03
+Error norm when n = 40: 6.316984e-04
+Error norm when n = 80: 1.579680e-04
+Error norm when n = 160: 3.949467e-05
+Error norm when n = 320: 9.873832e-06
+Error norm when n = 640: 2.468468e-06
+Error norm when n = 1280: 6.171177e-07
+Error norm when n = 2560: 1.542794e-07
+Error norm when n = 5120: 3.856983e-08
