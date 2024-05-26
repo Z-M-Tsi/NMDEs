@@ -36,13 +36,14 @@ def plot_trajectories(t, brownian_motions, save=False, filename='brownian_motion
 
 
 
-def plot_variation(t, variations, save=False, filename='variation.eps'):
+def plot_variation(t, variations, dt, save=False, filename='variation.eps'):
     '''
-    Plot the variation of two variables over time.
+    Plot the variation of two variables under different timesteps.
 
     Parameters:
         t (array-like): The time values.
         variations (list of array-like): A list of two arrays representing 1st- and 2nd-order variations.
+        dt (list of array-like): A list of the time step values.
         save (bool, optional): Whether to save the plot as a file. Default is False.
         filename (str, optional): The filename to save the plot. Default is 'variation.eps'.
 
@@ -50,13 +51,16 @@ def plot_variation(t, variations, save=False, filename='variation.eps'):
         None
     '''
 
-    plt.figure(figsize=(6, 3))
-    for i in range(2):
-        plt.subplot(1, 2, i+1)
-        plt.plot(t[1:], variations[i])
-        plt.title(label='{:} Variation'.format('First' if i==0 else 'Second'))
-        plt.xlabel('Time')
-        plt.grid(True)
+    nums = len(variations)
+
+    plt.figure(figsize=(6, 3*nums))
+    for i in range(nums):
+        for j in range(2):
+            plt.subplot(nums, 2, 2*i+j+1)
+            plt.plot(t[i][1:], variations[i][j])
+            plt.title(label='{:} Variation when dt = {:}'.format('First' if j==0 else 'Second', dt[i]))
+            plt.xlabel('Time')
+            plt.grid(True)
         
     plt.tight_layout()
 
@@ -67,7 +71,7 @@ def plot_variation(t, variations, save=False, filename='variation.eps'):
 
 
 
-def plot_X(t, X, X_variation, v, save=True, filename='X.eps'):
+def plot_X(t, X, X_variation, v, save=False, filename='X.eps'):
     """
     Plot the trajectory of X and its second-order variation.
 
