@@ -21,7 +21,8 @@ int main(int argc, char* argv[]) {
     }
 
     for (int i = 0; i < nums_size ; i++) {
-        std::cout << "For n = " << nums[i] << ", sum = " << sum_float[i] << ", error = " << error_float[i] << std::endl;
+        std::cout << "For n = " << nums[i] << ", sum = " 
+        << sum_float[i] << ", error = " << error_float[i] << std::endl;
     }
 
     return 0;
