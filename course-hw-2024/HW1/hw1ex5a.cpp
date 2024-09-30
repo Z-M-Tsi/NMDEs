@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
             iter += 1;
         }
         if (iter == max_iter) {
-            std::cout << "After "<< max_iter << " iterations, the method did not converge for x0 = " 
+            std::cout << "After "<< max_iter << " iterations, the sequence did not converge for x0 = " 
             << init_guesses[i] << "." << std::endl;
         }
         if (res <= eps)
