@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.rmd": "markdown",
+        "complex": "cpp",
+        "__bit_reference": "cpp",
+        "deque": "cpp",
+        "iterator": "cpp",
+        "string": "cpp",
+        "iomanip": "cpp",
+        "stdexcept": "cpp",
+        "chrono": "cpp"
+    }
+}
