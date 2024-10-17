@@ -25,6 +25,8 @@ private:
     int rows, cols;
     T* data;
 
+    int findpivot(int r) const;
+
 public:
     // Constructors and Destructor
     Matrix(int rows, int cols);
@@ -54,7 +56,7 @@ public:
     // Frequently used matrix self operations
     Matrix<T> transpose() const;
     // double det() const;
-    // Matrix<T> inverse() const;
+    Matrix<T> inverse() const;
 
     // Frequently used generations
     static Matrix<T> eyes(int n);
