@@ -1,5 +1,5 @@
-#ifndef MATRIXOPERATOR_HPP
-#define MATRIXOPERATOR_HPP
+#ifndef MATRIXOP_HPP
+#define MATRIXOP_HPP
 #include "Matrix.h"
 
 namespace mymatrix {
@@ -72,21 +72,21 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& M) const {
     return result;  
 }
 
-template <typename T>
-Matrix<T> operator*(const T& scalar, const Matrix<T>& M) {
-    Matrix<T> result(M.rows, M.cols);
+template <typename U>
+Matrix<U> operator*(const U& scalar, const Matrix<U>& M) {
+    Matrix<U> result(M.rows, M.cols);
     for (int i = 0; i < M.rows * M.cols; ++i) {
         result.data[i] = scalar * M.data[i];
     }
     return result;
 }
 
-template <typename T>
-Matrix<T> operator*(const Matrix<T>& M, const T& scalar) {
+template <typename U>
+Matrix<U> operator*(const Matrix<U>& M, const U& scalar) {
     return scalar * M;
 }
 
 } // namespace mymatrix
 
 
-#endif // MATRIXOPERATOR_HPP
+#endif // MATRIXOP_HPP

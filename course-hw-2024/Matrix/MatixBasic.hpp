@@ -56,7 +56,10 @@ template <typename T>
 void Matrix<T>::print() const {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++)
-            std::cout << std::setw(8) << data[i * cols + j] << " ";
+            if (fabs(data[i * cols + j]) < 1e-6)
+                std::cout << std::setw(6) << 0 << " ";
+            else
+                {std::cout << std::setw(6) << data[i * cols + j] << " ";}
         std::cout << std::endl;
     }
 }

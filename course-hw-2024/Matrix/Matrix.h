@@ -14,9 +14,11 @@
 #define MATRIX_H
 
 #include <iostream>
+#include <cmath>
+#include <random>
+#include <algorithm>
 #include <iomanip>
 #include <stdexcept>
-#include <random>
 
 namespace mymatrix{
 template <typename T>
@@ -25,7 +27,7 @@ private:
     int rows, cols;
     T* data;
 
-    int findpivot(int r) const;
+    int selectPivot(int r) const;
 
 public:
     // Constructors and Destructor
@@ -55,8 +57,8 @@ public:
     
     // Frequently used matrix self operations
     Matrix<T> transpose() const;
-    // double det() const;
     Matrix<T> inverse() const;
+    double det() const;
 
     // Frequently used generations
     static Matrix<T> eyes(int n);
@@ -65,10 +67,11 @@ public:
     static Matrix<T> randi(int rows, int cols, int min, int max);
     
 };
+
 } // namespace mymatrix
 
 #include "MatixBasic.hpp"
-#include "MatrixOperater.hpp"
+#include "MatrixOp.hpp"
 #include "MatrixSelf.hpp"
 #include "MatrixGen.hpp"
 

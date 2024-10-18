@@ -7,8 +7,9 @@ int main(int argc, char* argv[]) {
     A(2, 0) = 7; A(2, 1) = 8; A(2, 2) = 10;
     // A.print();
     mymatrix::Matrix<double> B = A.inverse();
+    
     B.print();
-    mymatrix::Matrix<double> C = A * B;
-    C.print();
+    // mymatrix::Matrix<double> C = A * B;
+    // C.print();
     return 0;
 }
