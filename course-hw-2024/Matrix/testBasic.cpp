@@ -8,8 +8,8 @@
 #include "Matrix.h"
 
 
-int main(int argc, char* argv[]) {
-    int size = 5;
+void testBasic() {
+    int size = 10;
     mymatrix::Matrix<int> A = mymatrix::Matrix<int>::randi(size, size, 0, 99);
     mymatrix::Matrix<int> B = mymatrix::Matrix<int>::randi(size, size, 0, 99);   
     std::cout << "Testing all basic matrix operations...\n";
@@ -93,7 +93,6 @@ int main(int argc, char* argv[]) {
     }
     if (subMatrixPassed) std::cout << "Submatrix test passed!\n";
 
-    std::cout << "All functions tested successfully!\n";
+    std::cout << "All Basic functions tested successfully!\n";
 
-    return 0;
 }

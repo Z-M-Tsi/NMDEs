@@ -59,14 +59,22 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& M) const {
     if (cols != M.rows) 
         throw std::invalid_argument("Invalid dimensions for matrix multiplication");
 
-    Matrix<T> result(rows, M.cols);
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < M.cols; ++j) {
-            T sum = 0;
-            for (int k = 0; k < cols; ++k) {
-                sum += data[i*cols+k] * M.data[k*M.cols+j];
+    // Matrix<T> result(rows, M.cols);
+    // for (int i = 0; i < rows; ++i) {
+    //     for (int j = 0; j < M.cols; ++j) {
+    //         T sum = 0;
+    //         for (int k = 0; k < cols; ++k) {
+    //             sum += data[i*cols+k] * M.data[k*M.cols+j];
+    //         }
+    //         result.data[i*M.cols+j] = sum;
+    //     }
+    // }
+    Matrix<T> result = zeros(rows, M.cols);
+    for (int m = 0; m < rows; ++m) { // (m x k) * (k x n) = (m x n), mkn method
+        for (int k = 0; k < cols; ++k) {
+            for (int n = 0; n < M.cols; ++n) {
+                result.data[m*M.cols+n] += data[m*cols+k] * M.data[k*M.cols+n];
             }
-            result.data[i*M.cols+j] = sum;
         }
     }
     return result;  
