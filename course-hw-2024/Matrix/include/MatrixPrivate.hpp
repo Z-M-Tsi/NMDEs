@@ -29,30 +29,15 @@ bool Matrix<T>::isSymmetric() const {
 }
 
 template <typename T>
-Matrix<T> Matrix<T>::Cholesky() const { // M = LDL^T
-
-    int n = rows;
-    Matrix<T> result(*this);
-    for (int i=0; i<n; ++i) {
-        for (int j=0; j<i; ++j) {
-            T sum = 0.0;
-            for (int k=0; k<j; ++k) {
-                sum += result.data[i*n+k] * result.data[k*n+k] * result.data[j*n+k];
-            }
-            result.data[i*n+j] = (result.data[i*n+j] - sum) / result.data[j*n+j];
-            result.data[j*n+i] = 0.0;
-        }
-        T sum = 0.0;
-        for (int k=0; k<i; ++k) {
-            sum += result.data[i*n+k] * result.data[k*n+k] * result.data[i*n+k];
-        }
-        result.data[i*n+i] = result.data[i*n+i] - sum;
-        if (result.data[i*n+i] < 1e-15) {
-            throw std::runtime_error("Matrix is not positive definite");
-        }
+T Matrix<T>::symPosiDet() const{
+    Matrix<T> result = Cholesky();
+    T det = 1.0;
+    for (int i = 0; i < rows; ++i) {
+        det *= result.data[i*rows+i];
     }
-    return result;
+    return det;
 }
+
 
 template <typename T>
 Matrix<T> Matrix<T>::symPosiInverse() const { 

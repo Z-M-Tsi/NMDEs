@@ -5,7 +5,7 @@
 */
 
 #include <iostream>
-#include "../Matrix.h"
+#include "../include/Matrix.h"
 
 
 void testBasic() {
@@ -76,6 +76,7 @@ void testBasic() {
             }
         }
     }
+    if (transposePassed) std::cout << "Transpose test passed!\n";
     std::cout << "All functions tested successfully!\n";
 
 

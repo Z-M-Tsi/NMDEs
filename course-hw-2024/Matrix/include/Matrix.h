@@ -30,7 +30,6 @@ private:
     int selectPivot(int r) const;
 
     bool isSymmetric() const;
-    Matrix<T> Cholesky() const;
     Matrix<T> symPosiInverse() const;
     T symPosiDet() const;
 
@@ -72,13 +71,9 @@ public:
     T det(const std::string& flag = "") const;
 
     // Matrix decompositions
-    Matrix<T> LU() const;
-    Matrix<T> DecompCholesky() const;
-    Matrix<T> QR() const;
-    Matrix<T> SVD() const;
-    Matrix<T> eig() const;
-
-    
+    std::pair<Matrix<T>, std::pair<int, int>*> LU(const std::string& flag = "") const;
+    Matrix<T> Cholesky() const;
+    std::pair<Matrix<T>, Matrix<T>> QR() const;
     
 };
 
