@@ -29,6 +29,11 @@ private:
 
     int selectPivot(int r) const;
 
+    bool isSymmetric() const;
+    Matrix<T> Cholesky() const;
+    Matrix<T> symPosiInverse() const;
+    T symPosiDet() const;
+
 public:
     // Constructors and Destructor
     Matrix(int rows, int cols);
@@ -41,6 +46,12 @@ public:
     std::pair<int, int> size() const;
     Matrix<T> subMatrix(int init_row, int final_row, int init_col, int final_col) const;
     void print() const;
+
+    // Frequently used generations
+    static Matrix<T> eyes(int n);
+    static Matrix<T> zeros(int rows, int cols);
+    static Matrix<T> ones(int rows, int cols);
+    static Matrix<T> randi(int rows, int cols, int min, int max);
 
     // Overloaded operators 
     T& operator()(int i, int j);
@@ -57,22 +68,27 @@ public:
     
     // Frequently used matrix self operations
     Matrix<T> transpose() const;
-    Matrix<T> inverse() const;
-    double det() const;
+    Matrix<T> inverse(const std::string& flag = "") const;
+    T det(const std::string& flag = "") const;
 
-    // Frequently used generations
-    static Matrix<T> eyes(int n);
-    static Matrix<T> zeros(int rows, int cols);
-    static Matrix<T> ones(int rows, int cols);
-    static Matrix<T> randi(int rows, int cols, int min, int max);
+    // Matrix decompositions
+    Matrix<T> LU() const;
+    Matrix<T> DecompCholesky() const;
+    Matrix<T> QR() const;
+    Matrix<T> SVD() const;
+    Matrix<T> eig() const;
+
+    
     
 };
 
 } // namespace mymatrix
 
+#include "MatrixPrivate.hpp"
 #include "MatixBasic.hpp"
 #include "MatrixOp.hpp"
 #include "MatrixSelf.hpp"
 #include "MatrixGen.hpp"
+#include "MatrixDecomp.hpp"
 
 #endif // MATRIX_H

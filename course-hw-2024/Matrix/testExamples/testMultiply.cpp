@@ -7,7 +7,7 @@
 #include<iostream>
 #include<chrono>
 #include<random>
-#include"Matrix.h"
+#include"../Matrix.h"
 
 void benchmark(int n) {
     std::cout << "Benchmarking with size: " << n << "x" << n << "\n";

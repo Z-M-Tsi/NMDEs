@@ -95,6 +95,4 @@ Matrix<U> operator*(const Matrix<U>& M, const U& scalar) {
 }
 
 } // namespace mymatrix
-
-
 #endif // MATRIXOP_HPP

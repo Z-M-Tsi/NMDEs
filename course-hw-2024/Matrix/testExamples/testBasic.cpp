@@ -5,7 +5,7 @@
 */
 
 #include <iostream>
-#include "Matrix.h"
+#include "../Matrix.h"
 
 
 void testBasic() {

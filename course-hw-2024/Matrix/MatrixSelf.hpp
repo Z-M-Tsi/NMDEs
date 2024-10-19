@@ -1,19 +1,8 @@
-#ifndef MATRIXSELF_HPP
-#define MATRIXSELF_HPP
+#ifndef MATRIX_SELF_HPP
+#define MATRIX_SELF_HPP
 #include "Matrix.h"
 
 namespace mymatrix {
-template <typename T>
-inline int Matrix<T>::selectPivot(int r) const {
-    int n = rows;
-    int pivot = r;
-    for (int i=r+1; i<n; ++i) {
-        if (std::abs(data[i*n+r]) > std::abs(data[pivot*n+r])) {
-            pivot = i;
-        }
-    }
-    return pivot;
-}
 
 template <typename T>
 Matrix<T> Matrix<T>::transpose() const {
@@ -27,14 +16,23 @@ Matrix<T> Matrix<T>::transpose() const {
 }
 
 template <typename T>
-double Matrix<T>::det() const {
+T Matrix<T>::det(const std::string& flag) const {
     if (rows != cols) {
         throw std::invalid_argument("Matrix must be square to compute determinant");
     }
+
+    if (flag == "symPosi") {
+        if (!isSymmetric()) {
+            throw std::invalid_argument("Matrix must be symmetric for Cholesky decomposition");
+        }
+        return symPosiDet();
+    }
+
     int n = rows;
     Matrix<T> result(*this);
-    double Det = 1.0;
-    for (int r=0; r<n; ++r) {
+    T Det = 1.0;
+
+    for (int r = 0; r < n; ++r) {
         int pivot = selectPivot(r);
         if (pivot != r) {
             Det = -Det;
@@ -42,25 +40,37 @@ double Matrix<T>::det() const {
                 std::swap(result.data[r*n+i], result.data[pivot*n+i]);
             }
         }
-        Det *= result.data[r*n+r];
-        if (fabs(result.data[r*n+r]) < 1e-15) {
-            return 0.0;
-        }
-        for (int i=r+1; i<n; ++i) {
-            result.data[i*n+r] /= result.data[r*n+r];
-            for (int k=r+1; k<n; ++k) {
-                result.data[i*n+k] -= result.data[i*n+r] * result.data[r*n+k];
+
+        T diag = result.data[r * n + r];
+        if (fabs(diag) < 1e-15) {return 0.0;}  
+
+        Det *= diag;
+
+        for (int i = r + 1; i < n; ++i) {
+            T factor = result.data[i * n + r] / diag;
+            for (int k = r + 1; k < n; ++k) {
+                result.data[i * n + k] -= factor * result.data[r * n + k];
             }
         }
     }
+
     return Det;
 }
 
+
 template <typename T>
-Matrix<T> Matrix<T>::inverse() const {
+Matrix<T> Matrix<T>::inverse(const std::string& flag) const {
     if (rows != cols) {
         throw std::invalid_argument("Matrix must be square to be invertible");
     }
+
+    if (flag == "symPosi") {
+        if (!isSymmetric()) {
+            throw std::invalid_argument("Matrix must be symmetric for Cholesky decomposition");
+        }
+        return symPosiInverse();
+    }
+
     int n = rows;
     Matrix<T> result(*this);
     std::pair<int, int>* swap_order = new std::pair<int, int>[n]; 
@@ -107,32 +117,34 @@ Matrix<T> Matrix<T>::inverse() const {
         }
     }
     for (int r = 0; r < n; ++r) { // Forward elimination for inv(L)
-        for (int j = 0; j < r; ++j) {
+        for (int j=0; j<r; ++j) {
             T sum = 0.0;
-            for (int k = j; k < r; ++k) {
-                T Lkj = (k == j) ? 1.0 : result.data[k * n + j];  
-                sum += result.data[r * n + k] * Lkj;
+            for (int k=j; k<r; ++k) {
+                T Lkj = (k==j) ? 1.0 : result.data[k*n+j];  
+                sum += result.data[r*n+k] * Lkj;
             }
-            result.data[r * n + j] = -sum;
+            result.data[r*n+j] = -sum;
         }
     }
 
-    T* tmp_data = new T[n*n];
+    T* tmp_data = new T[n];
     for (int i = 0; i < n; ++i) { // Compute inv(A) = inv(U) * inv(L)
         for (int j = 0; j < n; ++j) {  
+            tmp_data[j] = 0.0;
             for (int k=std::max(i, j); k<n; ++k) {   
                 T Lkj = (k==j) ? 1.0 : result.data[k*n+j];  
-                tmp_data[i*n+j] += result.data[i*n+k] * Lkj;
+                tmp_data[j] += result.data[i*n+k] * Lkj;
             }
+            result.data[i*n+j] = tmp_data[j];
         }
     }
-    std::swap(result.data, tmp_data);
+
     
-    for (int i = n-1; i >= 0; --i) { // Swap columns
+    for (int i=n-1; i>=0; --i) { // Swap columns
         int row1 = swap_order[i].first;
         int row2 = swap_order[i].second;
-        for (int j = 0; j < n; ++j) {
-            std::swap(result.data[j * n + row1], result.data[j * n + row2]);
+        for (int j=0; j<n; ++j) {
+            std::swap(result.data[j*n+row1], result.data[j*n+row2]);
         }
     }
 
@@ -141,6 +153,5 @@ Matrix<T> Matrix<T>::inverse() const {
     return result;
 }
 
-}
-
-#endif // MATRIXSELF_HPP
+} // namespace mymatrix
+#endif // MATRIX_SELF_HPP

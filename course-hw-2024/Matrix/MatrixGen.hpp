@@ -33,7 +33,7 @@ Matrix<T> Matrix<T>::ones(int rows, int cols) {
 }
 
 template <typename T>
-mymatrix::Matrix<T> mymatrix::Matrix<T>::randi(int rows, int cols, int min, int max) {
+Matrix<T> Matrix<T>::randi(int rows, int cols, int min, int max) {
     if (!std::is_integral<T>::value) {
         throw std::invalid_argument("randi only supports integral types.");
     }
@@ -50,8 +50,5 @@ mymatrix::Matrix<T> mymatrix::Matrix<T>::randi(int rows, int cols, int min, int 
     return result;
 }
 
-
-
-
-}
+} // namespace mymatrix
 #endif // MATRIXGEN_HPP

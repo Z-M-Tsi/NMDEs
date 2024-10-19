@@ -5,12 +5,9 @@ CC = g++
 CFLAGS = -Wall -Wextra -O2
 
 # Target executable
-TARGET = 
-
-# Source files
-SRCS = 
 TARGET = MatrixTest
 
+# Source files
 SRCS = MatrixTest.cpp
 
 # Object files

@@ -3,7 +3,7 @@
     * This file is used to test the determinant and inverse of a matrix.
 */
 
-#include"Matrix.h"
+#include"../Matrix.h"
 
 void testDetandInv() {
     

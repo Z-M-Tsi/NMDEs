@@ -26,7 +26,7 @@ void benchmark(int n) {
     mymatrix::Matrix<float> MA = getCyclic(n);
 
     auto start = std::chrono::high_resolution_clock::now();
-    mymatrix::Matrix<float> MC = MA.inverse();
+    mymatrix::Matrix<float> MC = MA.inverse("symPosi");
     auto end = std::chrono::high_resolution_clock::now();
     std::cout << "Inverse Time with Matrix.h: "
               << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()
@@ -39,13 +39,13 @@ void benchmark(int n) {
 int main(int argc, char* argv[]) {
 
     mymatrix::Matrix<float> A1 = getCyclic(4);
-    mymatrix::Matrix<float> A1inv = A1.inverse();
+    mymatrix::Matrix<float> A1inv = A1.inverse("symPosi");
     std::cout << "The inverse matrix for n = 4:\n\n";
     A1inv.print();
     std::cout << std::endl;
 
     mymatrix::Matrix<float> A2 = getCyclic(8);
-    mymatrix::Matrix<float> A2inv = A2.inverse();
+    mymatrix::Matrix<float> A2inv = A2.inverse("symPosi");
     std::cout << "The inverse matrix for n = 8:\n\n";
     A2inv.print();
     std::cout << std::endl;
