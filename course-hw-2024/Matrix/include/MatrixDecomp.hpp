@@ -10,12 +10,12 @@ std::pair<Matrix<T>, std::pair<int, int>*> Matrix<T>::LU(const std::string &flag
         throw std::runtime_error("Matrix must be square to be decomposed");
     }
 
-    if (flag == "symPosi") {
-        if (!isSymmetric()) {
-            throw std::runtime_error("Matrix must be symmetric for Cholesky decomposition");
-        }
-        return Cholesky();
-    }
+    // if (flag == "symPosi") {
+    //     if (!isSymmetric()) {
+    //         throw std::runtime_error("Matrix must be symmetric for Cholesky decomposition");
+    //     }
+    //     return Cholesky();
+    // }
 
     int n = rows;
     Matrix<T> result(*this);

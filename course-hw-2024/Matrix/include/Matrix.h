@@ -74,6 +74,9 @@ public:
     std::pair<Matrix<T>, std::pair<int, int>*> LU(const std::string& flag = "") const;
     Matrix<T> Cholesky() const;
     std::pair<Matrix<T>, Matrix<T>> QR() const;
+
+    // Matrix solvers
+    Matrix<T> Gausssolve(const Matrix<T>& b) const;
     
 };
 
@@ -85,5 +88,6 @@ public:
 #include "MatrixSelf.hpp"
 #include "MatrixGen.hpp"
 #include "MatrixDecomp.hpp"
+#include "MatrixSolve.hpp"
 
 #endif // MATRIX_H
