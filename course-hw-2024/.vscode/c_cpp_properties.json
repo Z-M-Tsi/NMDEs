@@ -5,7 +5,7 @@
             "includePath": [
                 "${default}",
                 "/usr/include/eigen3",
-                "${workspaceFolder}/Matirx"
+                "/home/tsi-sir/sci-comp-2024/course-hw-2024/Matrix/**"
             ],
             "intelliSenseMode": "linux-gcc-x64"
         }
